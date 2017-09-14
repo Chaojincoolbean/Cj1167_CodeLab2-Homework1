@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour {
 
-	public Sprite[] sprites;
+	public GameObject[] balls;
+	public GameObject newBall;
+	public float x;
+	public float SpawnSpeed;
 
 	// Use this for initialization
 	void Start () {
 		
-		InvokeRepeating ("SpriteTime", 1, 1);
+		
+		InvokeRepeating ("SpriteTime", SpawnSpeed, 1);
+		x = 0f;
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 
 		
 	}
@@ -29,13 +35,14 @@ public class Spawner : MonoBehaviour {
 	}
 
 	void MakeSprite(int num){
-		
-		GameObject goSprite = new GameObject ();
 
-		SpriteRenderer sr = goSprite.AddComponent<SpriteRenderer> ();
-		sr.sprite = sprites [num];
+		x = Random.Range (-6, 6);
 
-		goSprite.AddComponent<Rigidbody2D> ();
+		newBall = balls [num];
+
+
+		GameObject Ball = Instantiate(newBall, new Vector3(x, 5.54f,0), Quaternion.identity) as GameObject;
+
 	
 	}
 }
