@@ -25,5 +25,11 @@ public class Player : MonoBehaviour {
 		}
 
 		this.gameObject.transform.position = new Vector3 (x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+
+		if(Input.GetKey(KeyCode.Space)){
+
+			this.gameObject.GetComponent<ScoreManager> ().RingScore = 0;
+		
+		}
 	}
 }

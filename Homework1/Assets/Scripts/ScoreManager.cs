@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class ScoreManager : MonoBehaviour {
 	public AudioClip HitAudio;
 	public AudioClip BombAudio;
 	public AudioClip ScoreAudio;
+	public GameObject Score;
 
 
 
@@ -16,7 +18,7 @@ public class ScoreManager : MonoBehaviour {
 	void Start () {
 
 		RingScore = 0;
-		PlayerScore = 0;
+		PlayerScore = 1;
 		
 	}
 	
@@ -27,10 +29,21 @@ public class ScoreManager : MonoBehaviour {
 
 			PlayerScore = PlayerScore + 1;
 			RingScore = 0;
+			this.gameObject.GetComponent<AudioSource> ().clip = ScoreAudio;
+			this.gameObject.GetComponent<AudioSource> ().Play ();
 		
 		}
 
+		if (RingScore > PlayerScore) {
+			
+			PlayerPrefs.SetInt("FinalScore",PlayerScore);
+			SceneManager.LoadScene (2);
+
+		}
+
 		this.gameObject.GetComponentInChildren<TextMesh> ().text = RingScore.ToString ();
+		Score.gameObject.GetComponentInChildren<TextMesh> ().text = "Score:"+ PlayerScore.ToString ();
+
 		
 	}
 
@@ -53,6 +66,12 @@ public class ScoreManager : MonoBehaviour {
 
 			this.gameObject.GetComponent<AudioSource> ().clip = BombAudio;
 			this.gameObject.GetComponent<AudioSource> ().Play ();
+
+			Destroy (other.gameObject);
+
+			PlayerPrefs.SetInt("FinalScore",PlayerScore);
+
+			SceneManager.LoadScene (2);
 		
 		}
 

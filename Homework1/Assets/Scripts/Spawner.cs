@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour {
 	void Start () {
 		
 		
-		InvokeRepeating ("SpriteTime", SpawnSpeed, 1);
+		InvokeRepeating ("SpriteTime", 1, SpawnSpeed);
 		x = 0f;
 		
 	}
