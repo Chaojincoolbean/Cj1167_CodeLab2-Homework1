@@ -5,11 +5,16 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
 	public float x;
+	public float DragForce;
+	public float AccelForce;
+	public Rigidbody2D rb;
+
 
 	// Use this for initialization
 	void Start () {
 
 		x = this.gameObject.transform.position.x;
+		rb = GetComponent<Rigidbody2D> ();
 		
 	}
 
@@ -17,14 +22,15 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		rb.velocity *= DragForce;
+
 		if(Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.LeftArrow)){
-			x = x - 0.3f;
+			rb.velocity += AccelForce * Vector2.left;
 		}
 		if(Input.GetKey(KeyCode.D)||Input.GetKey(KeyCode.RightArrow)){
-			x = x + 0.3f;
+			rb.velocity += AccelForce * Vector2.right;
 		}
-
-		this.gameObject.transform.position = new Vector3 (x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+			
 
 		if(Input.GetKey(KeyCode.Space)){
 
